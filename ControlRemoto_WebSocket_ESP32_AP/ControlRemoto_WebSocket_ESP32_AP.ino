@@ -25,10 +25,9 @@ WebSocketServer webSocketServer;
 WebServer serverWEB(80); //ClienteWEB
  
 const char* ssid = "mando";
-const char* password =  "NUUHPBOY";
+const char* password =  "clave1234";
 
-//const char* ssid = "MOVISTAR_C0F0";
-//const char* password =  "NUUHPBOY";
+
 
 
 //Variablres I/O y PWM
