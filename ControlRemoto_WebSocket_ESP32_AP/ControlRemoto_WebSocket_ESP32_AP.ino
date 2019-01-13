@@ -25,19 +25,20 @@ WebSocketServer webSocketServer;
 WebServer serverWEB(80); //ClienteWEB
  
 const char* ssid = "mando";
-const char* password =  "clave1234";
+const char* password =  "NUUHPBOY";
 
-
+//const char* ssid = "MOVISTAR_C0F0";
+//const char* password =  "NUUHPBOY";
 
 
 //Variablres I/O y PWM
 Servo servoDireccion;
 int servoPin = 13;
 
-int in1Motor = 27;
-int in2Motor = 26;
-int PWMMotor = 32;
-int freq = 5000;
+int in1Motor = 25;
+int in2Motor = 33;
+int PWMMotor = 26;
+int freq = 35000;
 
 int resolution = 8;
 
@@ -58,14 +59,14 @@ void handleRoot() {
   //3)http://tomeko.net/online_tools/cpp_text_escape.php?lang=en
   //const char HTML[] = "<!DOCTYPE HTML><html> <head> <script type=\"text/javascript\">function WebSocketTest(){if (\"WebSocket\" in window){alert(\"WebSocket is supported by your Browser!\"); var ws=new WebSocket(\"ws://192.168.1.45:8080/\"); ws.onopen=function(){ws.send(\"Message to send\"); alert(\"Message is sent...\");}; ws.onmessage=function (evt){var received_msg=evt.data; alert(\"Message is received...\");}; ws.onclose=function(){alert(\"Connection is closed...\");};}else{alert(\"WebSocket NOT supported by your Browser!\");}}</script> </head> <body> <div id=\"sse\"> <a href=\"javascript:WebSocketTest()\">Run WebSocket</a> </div></body></html>";
 
-  String paginaHTML = "<html> <head> <title>Mando coche RC/WiFi</title> <meta name=\"viewport\" content=\"width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{margin: 0px; overflow: hidden;}canvas{border: 0px solid black;}</style><script type=\"text/javascript\">var canvas;var ctx;var w=0;var h=0;var timer;var timer2;var updateStarted=false;var touches=[];var valorDireccion=0;var valorVelocidad=0;var numActiveTouch=0;function update(){if (updateStarted) return;updateStarted=true;var nw=window.innerWidth;var nh=window.innerHeight;if ((w !=nw) || (h !=nh)){w=nw;h=nh;canvas.style.width=w+'px';canvas.style.height=h+'px';canvas.width=w;canvas.height=h;resetCanvas();}ctx.clearRect(0, 0, w, h);valorDireccion=0;valorVelocidad=0;var i, len=touches.length;ctx.textAlign='left'; if(len > 0){}for (i=0; i<len; i++){var touch=touches[i];var px=touch.pageX;var py=touch.pageY;ctx.beginPath();ctx.arc(px, py, 20, 0, 2*Math.PI, true);ctx.fillStyle=\"rgba(0, 0, 200, 100)\";ctx.fill(); if(px < nw/2){ctx.font=\"30px Arial\"; var maxVelocidad=h/2; valorVelocidad=py-(h/2);valorVelocidad=(valorVelocidad*100)/maxVelocidad;valorVelocidad *=-1; if(py<(h/2)){ctx.fillText(\"F: \" +parseInt(valorVelocidad)+ \" %\", 0, 0+60);}else{ctx.fillText(\"R: \" +parseInt(valorVelocidad)+ \" %\", 0, 0+60);}}else{ctx.font=\"30px Arial\"; var maxGiro=w/4; if(px<w-(w/4)){valorDireccion=px-(w-(w/4)); valorDireccion=(valorDireccion*100)/maxGiro;ctx.fillText(\"L: \"+parseInt(valorDireccion)+ \" %\", w/2, 0+60);}else{valorDireccion=px-(w-(w/4));valorDireccion=(valorDireccion*100)/maxGiro;ctx.fillText(\"R: \"+parseInt(valorDireccion) +\" %\", w/2, 0+60);}}}ctx.textAlign='center';ctx.fillStyle=\"rgba(115, 115, 115, 100)\";ctx.font=\"30px Arial\"; ctx.fillText(\"Velocidad\", (nw/4), 30); ctx.fillText(\"Direccion\", (nw/2)+(nw/4), 30); ctx.lineWidth=3;ctx.strokeStyle=\"#f00\"; ctx.beginPath();ctx.moveTo(nw/2, 0);ctx.lineTo(nw/2, nh);ctx.stroke(); updateStarted=false;};function ol(){initComunicacion();canvas=document.getElementById('canvas');ctx=canvas.getContext('2d');timer=setInterval(update, 15); timer2=setInterval(enviar,50);resetCanvas(); canvas.addEventListener('touchend', function(){ctx.clearRect(0, 0, w, h);numActiveTouch--;console.log(\"Strop: \"+ event.targetTouches.length);toucles=[];touches=event.targetTouches;});canvas.addEventListener('touchmove', function(event){console.log(\"change: \"+event.targetTouches.length); touches=event.targetTouches;event.preventDefault();});canvas.addEventListener('touchstart', function(event){numActiveTouch++; console.log(\"start: \"+ numActiveTouch);});canvas.addEventListener('touchleave', function(event){numActiveTouch++; console.log(\"touchleave: \"+ numActiveTouch);});};function resetCanvas(){devicePixelRatio=window.devicePixelRatio || 5;canvas.width=window.innerWidth * devicePixelRatio; canvas.height=window.innerHeight * devicePixelRatio; canvas.style.width=window.innerWidth + 'px'; canvas.style.height=window.innerHeight + 'px'; ctx.scale(devicePixelRatio, devicePixelRatio);}var ws;function initComunicacion(){if (\"WebSocket\" in window){ws=new WebSocket(\"ws://";
-  paginaHTML+=WiFi.softAPIP().toString()+":8080/\"); ws.onopen=function (){ws.send(\"Mando conectado\");};}else{alert(\"El explorador no soporta WebSocket !\");}}function enviar(){var orden={velocidad: parseInt(valorVelocidad),direccion: parseInt(valorDireccion),luces: 0}; if(ws.readyState===1){ws.send(JSON.stringify(orden));}else{console.log(\"todavia no\");}}</script></head><body onload=\"ol()\"><canvas id=\"canvas\" width=\"100\" height=\"100\" style=\"top:0px; left:0px; width: 100; height: 100;\"></canvas><object id=\"tuio\" type=\"application/x-tuio\">Plugin FAILED to load</object></body></html>";
-
+  //String paginaHTML = "<html> <head> <title>Mando coche RC/WiFi</title> <meta name=\"viewport\" content=\"width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no\"><style type=\"text/css\">body{margin: 0px; overflow: hidden;}canvas{border: 0px solid black;}</style><script type=\"text/javascript\">var canvas;var ctx;var w=0;var h=0;var timer;var timer2;var updateStarted=false;var touches=[];var valorDireccion=0;var valorVelocidad=0;var numActiveTouch=0;function update(){if (updateStarted) return;updateStarted=true;var nw=window.innerWidth;var nh=window.innerHeight;if ((w !=nw) || (h !=nh)){w=nw;h=nh;canvas.style.width=w+'px';canvas.style.height=h+'px';canvas.width=w;canvas.height=h;resetCanvas();}ctx.clearRect(0, 0, w, h);valorDireccion=0;valorVelocidad=0;var i, len=touches.length;ctx.textAlign='left'; if(len > 0){}for (i=0; i<len; i++){var touch=touches[i];var px=touch.pageX;var py=touch.pageY;ctx.beginPath();ctx.arc(px, py, 20, 0, 2*Math.PI, true);ctx.fillStyle=\"rgba(0, 0, 200, 100)\";ctx.fill(); if(px < nw/2){ctx.font=\"30px Arial\"; var maxVelocidad=h/2; valorVelocidad=py-(h/2);valorVelocidad=(valorVelocidad*100)/maxVelocidad;valorVelocidad *=-1; if(py<(h/2)){ctx.fillText(\"F: \" +parseInt(valorVelocidad)+ \" %\", 0, 0+60);}else{ctx.fillText(\"R: \" +parseInt(valorVelocidad)+ \" %\", 0, 0+60);}}else{ctx.font=\"30px Arial\"; var maxGiro=w/4; if(px<w-(w/4)){valorDireccion=px-(w-(w/4)); valorDireccion=(valorDireccion*100)/maxGiro;ctx.fillText(\"L: \"+parseInt(valorDireccion)+ \" %\", w/2, 0+60);}else{valorDireccion=px-(w-(w/4));valorDireccion=(valorDireccion*100)/maxGiro;ctx.fillText(\"R: \"+parseInt(valorDireccion) +\" %\", w/2, 0+60);}}}ctx.textAlign='center';ctx.fillStyle=\"rgba(115, 115, 115, 100)\";ctx.font=\"30px Arial\"; ctx.fillText(\"Velocidad\", (nw/4), 30); ctx.fillText(\"Direccion\", (nw/2)+(nw/4), 30); ctx.lineWidth=3;ctx.strokeStyle=\"#f00\"; ctx.beginPath();ctx.moveTo(nw/2, 0);ctx.lineTo(nw/2, nh);ctx.stroke(); updateStarted=false;};function ol(){initComunicacion();canvas=document.getElementById('canvas');ctx=canvas.getContext('2d');timer=setInterval(update, 15); timer2=setInterval(enviar,50);resetCanvas(); canvas.addEventListener('touchend', function(){ctx.clearRect(0, 0, w, h);numActiveTouch--;console.log(\"Strop: \"+ event.targetTouches.length);toucles=[];touches=event.targetTouches;});canvas.addEventListener('touchmove', function(event){console.log(\"change: \"+event.targetTouches.length); touches=event.targetTouches;event.preventDefault();});canvas.addEventListener('touchstart', function(event){numActiveTouch++; console.log(\"start: \"+ numActiveTouch);});canvas.addEventListener('touchleave', function(event){numActiveTouch++; console.log(\"touchleave: \"+ numActiveTouch);});};function resetCanvas(){devicePixelRatio=window.devicePixelRatio || 5;canvas.width=window.innerWidth * devicePixelRatio; canvas.height=window.innerHeight * devicePixelRatio; canvas.style.width=window.innerWidth + 'px'; canvas.style.height=window.innerHeight + 'px'; ctx.scale(devicePixelRatio, devicePixelRatio);}var ws;function initComunicacion(){if (\"WebSocket\" in window){ws=new WebSocket(\"ws://";
+  //paginaHTML+=WiFi.softAPIP().toString()+":8080/\"); ws.onopen=function (){ws.send(\"Mando conectado\");};}else{alert(\"El explorador no soporta WebSocket !\");}}function enviar(){var orden={velocidad: parseInt(valorVelocidad),direccion: parseInt(valorDireccion),luces: 0}; if(ws.readyState===1){ws.send(JSON.stringify(orden));}else{console.log(\"todavia no\");}}</script></head><body onload=\"ol()\"><canvas id=\"canvas\" width=\"100\" height=\"100\" style=\"top:0px; left:0px; width: 100; height: 100;\"></canvas><object id=\"tuio\" type=\"application/x-tuio\">Plugin FAILED to load</object></body></html>";
+ extern const char mando_html[];
  
-  char HTML[paginaHTML.length()];
-  paginaHTML.toCharArray(HTML,paginaHTML.length());
+//  char HTML[paginaHTML.length()];
+//  paginaHTML.toCharArray(HTML,paginaHTML.length());
   //Realiza el envio de la pagina
-  serverWEB.send(200, "text/html", HTML); 
+  serverWEB.send(200, "text/html", mando_html); //HTML por 
 }
 
 void handleNotFound() {
@@ -196,8 +197,9 @@ void loop() {
  // WiFiClient cliente = server.available();
  // Serial.println(">");
  // if(cliente){
-   // Serial.println("hay un cloente conectado");
+    
     serverWEB.handleClient();
+    delay(100); // Da tiempo a qu el cliente procese la pagina y solicite la conexion
     WiFiClient client = server.available();
    
     if (client.connected() && webSocketServer.handshake(client)) {
@@ -220,7 +222,12 @@ void loop() {
    
      Serial.println("The client disconnected");
      delay(100);
-    }
+    }else{
+      
+
+     // Serial.print("..");
+       
+      }
  // }
   delay(100);
 }
